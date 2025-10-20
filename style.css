@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+input, button {
+    padding: 9px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    margin: 20px;
+}
+
+.container__addContacts {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    border: 2px solid #0096c7;
+    padding: 10px;
+    max-width: max-content;
+}

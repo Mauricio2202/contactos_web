@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Creador de contactos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+</style>
+</head>
+<body>
+    
+    <div class="container__addContacts">
+        <h1>Añade un Contacto</h1>
+        <label for="name">
+            Nombre:
+            <input type="text" id="name" name="name" placeholder="Nombre de contacto">
+        </label>
+        <label for="lastname">
+            Apellidos:
+            <input type="text" id="lastName" name ="lastname" placeholder="Apellidos de contacto">
+        </label>
+        <label for="phone">
+            Teléfono:
+            <input type="text" id="phone" name="phone" placeholder="Teléfono de contacto">
+        </label>
+        <label for="email">
+            Email:
+            <input type="email" id="email" name="email" placeholder="Email de contacto">
+        </label>
+        <label for="cumpleaños">
+            Cumpleaños:
+            <input type="date" id="cumpleaños" name="cumpleaños">
+        </label>
+    </div>
+    <button id="addContact">Agregar Contacto</button>
+
+
+    <div class="container_actuallyContacts">
+        <h2>Contactos Actuales</h2>
+        <ul id="contactList">
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
