@@ -10,9 +10,12 @@ document.getElementById('addContact').addEventListener('click', function() {
 
     const contactList = document.getElementById('contactList');
 
+    // Creamos un elemento de lista
     const li = document.createElement('li');
     
+    // A ese elemento le insertamos el código html de lo que hemos obtenido con los values de los inputs
     li.innerHTML = `
+        <h2>Nuevo contacto</h2>
         <strong>Nombre:</strong> ${name} <br>
         <strong>Apellido:</strong> ${lastName} <br>
         <strong>Teléfono:</strong> ${phone} <br>
@@ -20,8 +23,10 @@ document.getElementById('addContact').addEventListener('click', function() {
         <strong>Cumpleaños:</strong> ${happyBirthday} <br>
     `;
 
+    // Agregamos el elemento li a la lista de contactos
     contactList.appendChild(li);
 
+    // Limpiamos los campos después de agregar un contacto
     document.getElementById('name').value = '';
     document.getElementById('lastName').value = '';
     document.getElementById('phone').value = '';
