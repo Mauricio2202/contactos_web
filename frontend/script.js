@@ -21,10 +21,24 @@ document.getElementById('addContact').addEventListener('click', function() {
         <strong>Teléfono:</strong> ${phone} <br>
         <strong>Email:</strong> ${email} <br>
         <strong>Cumpleaños:</strong> ${happyBirthday} <br>
+        <button class="sendSolicitude">Enviar Solicitud</button>
+        <button class="deleteContact">Eliminar Contacto</button>
     `;
 
     // Agregamos el elemento li a la lista de contactos
     contactList.appendChild(li);
+
+    const sendSolicitude = li.querySelector('.sendSolicitude');
+    sendSolicitude.addEventListener('click', function() {
+        alert(`Enviando solicitud para ${name} ${lastName}`);
+
+        // Aquí puedes agregar la lógica para enviar la solicitud al backend
+    });
+
+    const deleteContact = li.querySelector('.deleteContact');
+    deleteContact.addEventListener('click', function(){
+        contactList.removeChild(li);
+    });
 
     // Limpiamos los campos después de agregar un contacto
     document.getElementById('name').value = '';

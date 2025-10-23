@@ -23,6 +23,11 @@ button {
     color: #FFF;
 }
 
+.deleteContact {
+    background-color: #e63946;
+    color: #FFF;
+}
+
 .container__addContacts {
     display: flex;
     flex-direction: column;
@@ -42,4 +47,8 @@ button {
     max-width: max-content;
     margin-top: -410px;
     border-radius: 5px;
+}
+
+li {
+    list-style: none;
 }
