@@ -101,3 +101,30 @@ document.getElementById('addContact').addEventListener('click', function() {
         alert('Error al guardar contacto: ' + error.message);
     });
 });
+
+document.getElementById('viewContacts').addEventListener('click', function() {
+    const contactList = document.getElementById('contactList');
+    contactList.innerHTML = '';
+    fetch('http://localhost:3000/api/contactos')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(contact => {
+            const li = document.createElement('li');
+            li.setAttribute('data-id', contact.id);
+            li.innerHTML = `
+                <strong>Name:</strong> ${contact.nombre} <br>
+                <strong>Last Name:</strong> ${contact.apellido} <br>
+                <strong>Phone:</strong> ${contact.telefono} <br>
+                <strong>Email:</strong> ${contact.email} <br>
+                <strong>Birthday:</strong> ${contact.cumpleaños} <br>
+                <button class="sendSolicitude">Send Solicitude</button>
+                <button class="deleteContact">Delete Contact</button>
+            `;
+            contactList.appendChild(li);
+    })
+})
+.catch(error => {
+    console.error('Error al obtener contactos:', error);
+    alert('Error al obtener contactos: ' + error.message);
+});
+});
