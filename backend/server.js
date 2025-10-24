@@ -38,10 +38,12 @@ app.post('/contactos', (req, res) => {
         (err, result) => {
             if (err) {
                 console.error('Error en BD:', err); 
-                res.status(500).send('Error al guardar el contacto');
+                res.status(500).json({ error: 'Error al guardar el contacto' });
             } else {
-                console.log('Contacto insertado ID:', result.insertId);
-                res.send('Contacto guardado correctamente');
+                res.json({
+                    id: result.insertId,
+                    mensaje: 'Contacto guardado correctamente'
+                })
             }
         }
     );
@@ -49,12 +51,29 @@ app.post('/contactos', (req, res) => {
 
 app.delete('/contactos/:id', (req, res) => {
     const { id } = req.params;
+    
+    console.log('SOLICITUD DELETE RECIBICA');
+    console.log('ID a eliminar: ', id);
+    console.log('Tipo de ID: ', typeof id);
+
     db.query('DELETE FROM contactos WHERE id = ?', [id], (err, result) => {
         if (err) {
-            console.error(err);
-            res.status(500).send('Error al eliminar contacto');
+            console.error("Error en DELETE", err);
+            res.status(500).json({ error: 'Error al eliminar el contacto' });
+        } 
+        console.log('Resultado DELETE:', result);
+        console.log('Filas afectadas:', result.affectedRows);
+        console.log('Mensaje DELETE:', result.message);
+        console.log('ID eliminado:', id);
+
+        if (result.affectedRows > 0) {
+            res.json({
+                mensaje: 'Contacto eliminado correctamente',
+                affectedRows: result.affectedRows
+            });
         } else {
-            res.send('Contacto eliminado correctamente');
+            console.log('No se encontró el contacto con ID:', id);
+            res.status(404).json({ error: 'Contacto no encontrado' });
         }
     });
 });

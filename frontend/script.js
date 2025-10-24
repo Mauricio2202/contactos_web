@@ -5,7 +5,7 @@ document.getElementById('addContact').addEventListener('click', function() {
     const lastName = document.getElementById('lastName').value;
     const phone = document.getElementById('phone').value;
     const email = document.getElementById('email').value;
-    const happyBirthday = document.getElementById('cumpleaños').value; // Asegúrate que el ID sea 'cumpleaños'
+    const happyBirthday = document.getElementById('cumpleaños').value; 
 
     const contactList = document.getElementById('contactList');
 
@@ -26,16 +26,20 @@ document.getElementById('addContact').addEventListener('click', function() {
         if (!response.ok) {
             throw new Error('Error en la respuesta del servidor');
         }
-        return response.text(); // Porque el servidor envía texto plano
+        // CAMBIO IMPORTANTE: Usar response.json() en lugar de response.text()
+        return response.json();
     })
     .then(data => {
         console.log('Contacto guardado:', data);
         
         // Creamos un elemento de lista
         const li = document.createElement('li');
+
+        // IMPORTANTE: Guardar el ID que devuelve el servidor
+        li.setAttribute('data-id', data.id);
+        console.log('ID guardado en data-id:', data.id);
         
         li.innerHTML = `
-            <h2>Nuevo contacto</h2>
             <strong>Nombre:</strong> ${name} <br>
             <strong>Apellido:</strong> ${lastName} <br>
             <strong>Teléfono:</strong> ${phone} <br>
@@ -54,7 +58,35 @@ document.getElementById('addContact').addEventListener('click', function() {
 
         const deleteContact = li.querySelector('.deleteContact');
         deleteContact.addEventListener('click', function(){
-            contactList.removeChild(li);
+            // Obtener el ID guardado en el atributo data-id
+            const contactId = li.getAttribute('data-id');
+        
+            console.log('INICIANDO ELIMINACIÓN');
+            console.log('ID del contacto:', contactId);
+        
+            fetch(`http://localhost:3000/contactos/${contactId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                console.log('Respuesta HTTP recibida');
+                console.log('Status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error('Error al eliminar el contacto');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Respuesta JSON del servidor:', data);
+                
+                // Eliminar de la interfaz solo si se eliminó de la BD
+                contactList.removeChild(li);
+                console.log('Contacto eliminado de la interfaz');
+            })
+            .catch(error => {
+                console.error('Error completo:', error);
+                alert('Error al eliminar contacto: ' + error.message);
+            });
         });
 
         // Limpiamos los campos después de agregar un contacto
